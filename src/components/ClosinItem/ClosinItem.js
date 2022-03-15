@@ -1,11 +1,11 @@
-import closeSvg from './closeSvg';
+import closeSvg from './close-icon.svg';
 
 export function ClosinItem(props) {
-  const { title, onClick } = props;
+  const { value, onClick } = props;
 
   return (
     <li class="closin-item">
-      <span className="closin-item__title"> {title} </span>
+      <span className="closin-item__title"> {value} </span>
       <button
         className="closin-item__close-btn"
         onClick={onClick}

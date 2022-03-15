@@ -1,14 +1,15 @@
 export function FullTab(props) {
-    const { feels, weather, temp, name, sunrise, sunset, isActive } = props;
+    const { weather, isActive } = props;
+    const { temp, feels, city, sunrise, sunset } = weather;
 
     return (
       <div className={ isActive ? 'full-tab--active' : 'full-tab' }>
-        <span className="full-tab__city"> { name } </span>
+        <span className="full-tab__city"> { city } </span>
 
         <ul className="full-tab__stats">
           <li> Temperature:{ temp }° </li>
           <li> Feels like:{ feels }° </li>
-          <li> Weather: { weather } </li>
+          <li> Weather: { weather.weather } </li>
           <li> Sunrise: { sunrise } </li>
           <li> Sunset: { sunset } </li>
         </ul>
