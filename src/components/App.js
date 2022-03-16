@@ -2,94 +2,95 @@ import './App.css';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import { NotificationMessage } from '../components/NotificationMessage/NotificationMessage';
 import { NamedList } from '../components/NamedList/NamedList';
-import { ClosinItem } from '../components/ClosinItem/ClosinItem';
-import { SelectButton } from './SelectButton/SelectButton';
+import { ClosinSelectItem } from './ClosinSelectItem/ClosinSelectItem';
 import { getWeather } from '../modules/api/api';
-import { SimplyTab } from './WeatherTab/SimplyTab/SimplyTab';
-import { useState } from 'react';
-import { FullTab } from './WeatherTab/FullTab/FullTab';
-import { ForecastTab } from './WeatherTab/ForecastTab/ForecastTab';
+import { useEffect, useState } from 'react';
+import { WeatherDisplay } from './WeatherDisplay/WeatherDisplay';
 
 function App() {
   const [favorites, setFavorites] = useState(new Set());
-  const [weather, setWeather] = useState({forecast:[{}]});
-  const [activeTab, setTab] = useState();
+  const [weather, setWeather] = useState({}); // make default weather
+  const [notify, setNotify] = useState([]);
 
-  let error = undefined;
   
+  // useEffect(() => {
+  //   console.log(favorites);
+  // })
 
-  async function searchSubmitHandler(city) {
+
+  async function searchWeatherHandler(city) {
+    if(!city) {
+      setNotify(['Write city!', true]);
+      return;
+    }
+
     try {
       const newWeather = await getWeather(city);
- 
-      newWeather.liked = city === favorites.has(city);
+      newWeather.liked = isFavorite(city);
+
       setWeather(newWeather);
+      setNotify(['', false]);
     }
-    catch(err) {
-      error = <NotificationMessage value="fetch was crashed" />
-      console.log(err)
+    catch(error) {
+      console.error(error);
+      setNotify(['Unknown city', true]);
     }
+  }
+
+  function isFavorite(city) {
+    return favorites.has(city);
   }
 
   function createFavoriteItem(city, index) {
     return (
-      <ClosinItem
+      <ClosinSelectItem
         key={index}
         value={city}
-        onClick={() => removeFavorite(city)}
+        onOpen={ searchWeatherHandler }
+        onClose={ removeFavorite }
       />
     );
   }
 
   function removeFavorite(city) {
-    const newList = favorites;
+    const newList = new Set(favorites);
     newList.delete(city);
 
+    if(weather.city === city) weather.liked = false;
+
     setFavorites(newList);
+  }
+
+  function addFavorite() {
+    const { liked, city } = weather;
+
+    weather.liked = !liked;
+
+    if(liked) {
+      removeFavorite(city);
+    } else {
+      setFavorites(new Set(favorites).add(city));
+    }
   }
 
   return (
     <div className="App">
       <main>
         <div className="weather">
-          <SearchBar onSubmit={searchSubmitHandler} />
-
-          {error}
+          <SearchBar onSubmit={searchWeatherHandler} />
+          <NotificationMessage value={notify[0]} active={notify[1]} />
 
           <div className="weather__inner">
-            <div className="weather__display">
-              {activeTab}
-
-              <div className="weather__switcher">
-                <SelectButton
-                  onClick={() =>
-                    setTab(
-                      <SimplyTab
-                        weather={weather}
-                        onLike={() =>
-                          setFavorites(
-                            weather.liked
-                              ? new Set(favorites).add(weather.city)
-                              : removeFavorite(weather.city)
-                          )
-                        }
-                      />
-                    )
-                  }
-                />
-                <SelectButton
-                  onClick={() => setTab(<FullTab weather={weather} />)}
-                />
-                <SelectButton
-                  onClick={() =>
-                    setTab(<ForecastTab forecast={weather.forecast} />)
-                  }
-                />
-              </div>
-            </div>
+            <WeatherDisplay
+              weather={weather}
+              onLike={ addFavorite }
+              open={{ now: true }}
+            />
             <NamedList
               title="Added Locations:"
-              list={[...favorites.values()].map(createFavoriteItem)}
+              list={
+                [...favorites.values()].map(createFavoriteItem)
+              }
             />
           </div>
         </div>

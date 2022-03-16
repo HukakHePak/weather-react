@@ -2,9 +2,7 @@ import likeSvg from './heart-ico.svg';
 
 export function SimplyTab(props) {
     const { weather, onLike, active } = props;
-    const { img, alt, temp, city, liked } = weather;
-
-    console.log(weather)
+    const { img, alt, temp, city, liked } = weather || {};
     
     return (
       <div className={ active ? 'simply-tab--active' : 'simply-tab' }>
@@ -14,7 +12,7 @@ export function SimplyTab(props) {
         </div>
         <span className="simply-tab__city"> { city }</span>
         <button className={ 'simply-tab__like-btn' + liked ? '--liked' : '' } 
-            style={{ backgroundImage: likeSvg }} 
+            style={{ backgroundImage: likeSvg, width: "20px", height: "20px", backgroundColor: "white" }} 
             onClick={ onLike }/>
       </div>
     );

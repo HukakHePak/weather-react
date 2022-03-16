@@ -1,6 +1,6 @@
 export function ForecastItem(props) {
     const { weather } = props;
-    const { feels, temp, date, time, alt, img } = weather;
+    const { feels, temp, date, time, alt, img } = weather || {};
 
     return (
       <li className="forecast-card">
