@@ -1,49 +1,52 @@
-import { format } from 'date-fns';
+import { convertDate, toCelcius } from "../math/some-math";
 
 export const URLS = {
-    CURRENT: 'https://api.openweathermap.org/data/2.5/weather',
-    FORECAST: 'https://api.openweathermap.org/data/2.5/forecast',
-    ICON: 'https://openweathermap.org/img/wn',
-    API_KEY: 'f660a2fb1e4bad108d6160b7f58c555f',
+  CURRENT: "https://api.openweathermap.org/data/2.5/weather",
+  FORECAST: "https://api.openweathermap.org/data/2.5/forecast",
+  ICON: "https://openweathermap.org/img/wn",
+  API_KEY: "ba94dbbea1912db3a6700b56b77d5a88",
 };
 
 async function requestURL(cityName, url) {
-    return await fetch(`${url}?q=${cityName}&appid=${URLS.API_KEY}`).then(res => res.json());
+  return fetch(`${url}?q=${cityName}&appid=${URLS.API_KEY}`).then((response) =>
+    response.json()
+  );
 }
 
 export async function getWeather(cityName) {
-    const data = await requestURL(cityName, URLS.CURRENT).then( simplifyWeatherData );
-    data.forecast = await requestURL(cityName, URLS.FORECAST).then(res => res.list.map( simplifyWeatherData ));
+  if (!cityName) {
+    return { status: "error", error: new Error("Write city!") };
+  }
+
+  try {
+    const data = await requestURL(cityName, URLS.CURRENT).then(
+      simplifyWeatherData
+    );
+    data.forecast = await requestURL(cityName, URLS.FORECAST).then((res) =>
+      res.list.map(simplifyWeatherData)
+    );
+
+    data.status="ok";
 
     return data;
+  } catch (e) {
+    return { status: "error", error: new Error("Write correct city!") };
+  }
 }
 
 function simplifyWeatherData(data) {
-    return {
-        date: convertDate(data.dt).date,
-        time: data.dt_txt ? data.dt_txt.slice(-8, -3) : undefined,
-        temp: toCelcius(data.main.temp),
-        feels: toCelcius(data.main.feels_like),
-        weather: data.weather[0].main,
-        img: `${URLS.ICON}/${data.weather[0].icon.slice(0, 2)}n@2x.png`,
-        city: data.name,
-        sunrise: convertDate(data.sys.sunrise).time,
-        sunset: convertDate(data.sys.sunset).time,
-        alt: 'to-create' // create img alt
-    };
-}
+  const {dt, dt_txt, main, weather, sys, name } = data;
 
-function toCelcius(temperature) {
-    return Math.round(temperature - 273);
-}
-
-function convertDate(milisec) {
-    if(!milisec) return { };
-
-    const date = new Date(milisec * 1000);
-    
-    return {
-        time: format(date, 'HH:mm'),
-        date: format(date, 'dd LLL')
-    };
+  return {
+    date: convertDate(dt).date,
+    time: dt_txt ? dt_txt.slice(-8, -3) : undefined,
+    temp: toCelcius(main.temp),
+    feels: toCelcius(main.feels_like),
+    weather: weather[0].main,
+    img: `${URLS.ICON}/${weather[0].icon.slice(0, 2)}n@2x.png`,
+    city: name,
+    sunrise: convertDate(sys.sunrise).time,
+    sunset: convertDate(sys.sunset).time,
+    alt: weather[0].description
+  };
 }
