@@ -3,6 +3,7 @@ import { SelectButton } from "../SelectButton/SelectButton";
 import { ForecastTab } from "../WeatherTab/ForecastTab/ForecastTab";
 import { FullTab } from "../WeatherTab/FullTab/FullTab";
 import { SimplyTab } from "../WeatherTab/SimplyTab/SimplyTab";
+import './WeatherDisplay.css';
 
 export function WeatherDisplay(props) {
   const { weather, onLike, storage, liked } = props;
@@ -16,7 +17,7 @@ export function WeatherDisplay(props) {
   });
 
   return (
-    <div className="weather__display">
+    <div className="weather-display">
       <SimplyTab
         weather={weather}
         active={active.now}
@@ -24,9 +25,9 @@ export function WeatherDisplay(props) {
         liked={liked}
       />
       <FullTab weather={weather} active={active.detail} />
-      {/* <ForecastTab forecast={weather?.forecast} active={active.forecast}/> */}
+      <ForecastTab weather={weather} active={active.forecast}/>
 
-      <div className="weather__switcher">
+      <div className="weather-display__switcher">
         <SelectButton
           value="Now"
           onClick={() => setActive({ now: true })}

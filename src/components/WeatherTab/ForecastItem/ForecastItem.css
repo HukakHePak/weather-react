@@ -1,0 +1,49 @@
+.forecast-card {
+  width: 100%;
+  height: 100px;
+  border: 1px solid black;
+  padding: 7px 10px 0 10px;
+  font-size: 18px;
+  line-height: 21px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.forecast-card__date-panel, .forecast-card__stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.forecast-card__details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  list-style: none;
+  padding: 0;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.forecast-card__weather-img {
+  width: 61px;
+  height: 61px;
+  -webkit-filter: drop-shadow(0 0 1px black);
+          filter: drop-shadow(0 0 1px black);
+}
+/*# sourceMappingURL=ForecastItem.css.map */

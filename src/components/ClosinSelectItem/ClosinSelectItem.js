@@ -1,4 +1,5 @@
 import closeSvg from "./close-icon.svg";
+import './ClosinSelectItem.css'
 
 export function ClosinSelectItem(props) {
   const { value, onOpen, onClose } = props;
@@ -23,7 +24,7 @@ export function ClosinSelectItem(props) {
       <button
         className="closin-item__close-btn"
         onClick={clickHandler}
-        style={{ backgroundImage: closeSvg }}
+        style={{ backgroundImage: `url(${closeSvg})` }}
       />
     </li>
   );

@@ -1,0 +1,25 @@
+.closin-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.closin-item__title {
+  font-size: 24px;
+  cursor: pointer;
+  word-wrap: break-word;
+  width: 230px;
+}
+
+.closin-item__close-btn {
+  width: 21px;
+  height: 21px;
+  margin-top: 7px;
+  border: none;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+/*# sourceMappingURL=ClosinSelectItem.css.map */

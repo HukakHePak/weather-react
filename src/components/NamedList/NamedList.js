@@ -1,3 +1,5 @@
+import './NamedList.css';
+
 export function NamedList(props) {
     const { list, title } = props;
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./SearchBar.css";
+import searchSvg from "./search-ico.svg";
 
 export function SearchBar(props) {
   const { value, onSubmit } = props;
@@ -22,7 +24,11 @@ export function SearchBar(props) {
         type="text"
         placeholder="Write city"
       />
-      <input className="search__submit-btn" type="submit" />
+      <input
+        className="search__submit-btn"
+        type="submit"
+        style={{ backgroundImage: `url(${searchSvg})` }}
+      />
     </form>
   );
 }

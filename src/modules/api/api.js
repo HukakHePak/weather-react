@@ -15,7 +15,7 @@ async function requestURL(cityName, url) {
 
 export async function getWeather(cityName) {
   if (!cityName) {
-    return { status: "error", error: new Error("Write city!") };
+    return createErrorResponse("Write city!");
   }
 
   try {
@@ -26,16 +26,20 @@ export async function getWeather(cityName) {
       res.list.map(simplifyWeatherData)
     );
 
-    data.status="ok";
+    data.status = "ok";
 
     return data;
   } catch (e) {
-    return { status: "error", error: new Error("Write correct city!") };
+    return createErrorResponse("Write correct city!");
   }
 }
 
+function createErrorResponse(message) {
+  return { status: "error", error: new Error(message) };
+}
+
 function simplifyWeatherData(data) {
-  const {dt, dt_txt, main, weather, sys, name } = data;
+  const { dt, dt_txt, main, weather, sys, name } = data;
 
   return {
     date: convertDate(dt).date,
@@ -47,6 +51,6 @@ function simplifyWeatherData(data) {
     city: name,
     sunrise: convertDate(sys.sunrise).time,
     sunset: convertDate(sys.sunset).time,
-    alt: weather[0].description
+    alt: weather[0].description,
   };
 }

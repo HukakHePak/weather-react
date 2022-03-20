@@ -16,7 +16,7 @@ function App(props) {
   const [weather, setWeather] = useState({});
 
   useEffect(() => {
-    if (!weather.city) searchWeather(city);
+    if (!weather.city && !weather.error) searchWeather(city);
     
     storage.set("favorites", [...favorites.values()]);
   });

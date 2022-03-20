@@ -1,11 +1,11 @@
+import "./SelectButton.css";
+
 export function SelectButton(props) {
-    const { value, isActive, onClick } = props;
+  const { value, active, onClick } = props;
 
-    const className = isActive ? 'select-button--active' : 'select-button';
-
-    return (
-        <button className={className} onClick={ onClick }>
-            {value}
-        </button>
-    );
+  return (
+    <button className={"select-button " + ( active ? "select-button--active" : "")} onClick={onClick}>
+      {value}
+    </button>
+  );
 }

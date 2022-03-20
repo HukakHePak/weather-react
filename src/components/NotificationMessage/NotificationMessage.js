@@ -1,9 +1,10 @@
+import './NotificationMessage.css';
+
 export function NotificationMessage(props) {
-    const { value, isActive } = props;
-    const className = isActive ? 'notification-msg--active' : 'notification-msg';
+    const { value, active } = props;
 
     return (
-        <div className={className}>
+        <div className={'notification-msg ' + (active && 'notification-msg--active' )}>
             <p className="notification-msg__content">
                 { value }
             </p>
