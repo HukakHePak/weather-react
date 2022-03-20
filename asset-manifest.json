@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/todo-react/static/css/main.514ec3f3.css",
+    "main.js": "/todo-react/static/js/main.f6b0e803.js",
+    "static/js/787.74e6b0f6.chunk.js": "/todo-react/static/js/787.74e6b0f6.chunk.js",
+    "static/media/search-ico.svg": "/todo-react/static/media/search-ico.6f41ec41d01337fccc6dd88d21f613d9.svg",
+    "index.html": "/todo-react/index.html",
+    "static/media/heart-ico.svg": "/todo-react/static/media/heart-ico.7718488bdc7f3e402fed60a14bb10994.svg",
+    "static/media/heart-active-ico.svg": "/todo-react/static/media/heart-active-ico.d6f2e50e251c1b18f65f7f900e4b27c6.svg",
+    "static/media/close-icon.svg": "/todo-react/static/media/close-icon.6036e52b6f73a2382edaa6397e48f1c8.svg",
+    "main.514ec3f3.css.map": "/todo-react/static/css/main.514ec3f3.css.map",
+    "main.f6b0e803.js.map": "/todo-react/static/js/main.f6b0e803.js.map",
+    "787.74e6b0f6.chunk.js.map": "/todo-react/static/js/787.74e6b0f6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.514ec3f3.css",
+    "static/js/main.f6b0e803.js"
+  ]
+}
