@@ -1,0 +1,49 @@
+.simply-tab {
+  display: none;
+  position: relative;
+  height: 100%;
+}
+
+.simply-tab--active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.simply-tab__temperature {
+  font-size: 70px;
+  line-height: 82px;
+  position: absolute;
+  top: 20px;
+  left: 23px;
+}
+
+.simply-tab__like-btn {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  padding: 0;
+  right: 26px;
+  bottom: 23px;
+  border: 0;
+  background: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.simply-tab__city {
+  position: absolute;
+  left: 12px;
+  bottom: 17px;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.simply-tab__weather-img {
+  width: 120px;
+  padding-top: 20px;
+  -webkit-filter: drop-shadow(0 0 2px black);
+          filter: drop-shadow(0 0 2px black);
+  margin: auto;
+}
+/*# sourceMappingURL=SimplyTab.css.map */

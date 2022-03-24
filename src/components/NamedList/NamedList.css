@@ -1,0 +1,43 @@
+.named-list {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.named-list__title {
+  width: 100%;
+  height: 68px;
+  padding-left: 17px;
+  padding-bottom: 7px;
+  font-size: 24px;
+  line-height: 28px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  border-bottom: 1px solid black;
+}
+
+.named-list__list {
+  margin: auto;
+  width: 100%;
+  height: 82%;
+  padding: 55px 20px 20px 20px;
+  overflow: scroll;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 8px;
+}
+/*# sourceMappingURL=NamedList.css.map */

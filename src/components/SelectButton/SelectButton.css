@@ -1,0 +1,18 @@
+.select-button {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 18px;
+  line-height: 21px;
+  border-right: 1px solid black;
+}
+
+.select-button--active {
+  background: black;
+  color: white;
+}
+
+.select-button:last-child {
+  border: none;
+}
+/*# sourceMappingURL=SelectButton.css.map */

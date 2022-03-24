@@ -1,0 +1,35 @@
+.notification-msg {
+  text-align: center;
+  color: white;
+  position: absolute;
+  display: none;
+  left: 100px;
+  top: 45px;
+  min-width: 140px;
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.notification-msg--active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #000000;
+}
+
+.notification-msg--active::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  left: calc(50% - 5px);
+  top: -20px;
+  border: 10px solid transparent;
+  border-bottom: 10px solid black;
+}
+
+.notification-msg__content {
+  margin: 0;
+}
+/*# sourceMappingURL=NotificationMessage.css.map */

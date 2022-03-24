@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,gBAAgB,CAAC;EACb,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,aAAa;EAC9B,YAAY,EAAE,eAAe;CAAG;;AAEpC,AAAA,0BAA0B,CAAC;EACvB,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,IAAI;EACb,UAAU,EAAE,eAAe;CAAG",
+    "sources": [
+        "WeatherDisplay.sass"
+    ],
+    "names": [],
+    "file": "WeatherDisplay.css"
+}
