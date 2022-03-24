@@ -6,14 +6,11 @@ export function ClosinSelectItem(props) {
   const { value, onOpen, onClose } = props;
 
   function clickHandler(event) {
-    const tag = event.target.tagName;
-
-    if (tag === "BUTTON") {
-      //console.log("button");
+    if (event.target.tagName === "BUTTON") {
       onClose(value);
       return;
     }
-
+    
     onOpen(value);
   }
 

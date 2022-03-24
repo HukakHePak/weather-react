@@ -9,33 +9,51 @@ const storage = jsStorage.initNamespaceStorage("weather-app").localStorage;
 const DATA_TYPES = {
   FAVORITES: "favorites",
   WEATHER: "weather",
+  STATE: "state_storage",
+  SELECTED: "selected",
+  LIKED: "liked",
 };
 
-const initialState = Map({
+const initialState = Map(storage.get(DATA_TYPES.STATE) || {
   weather: {},
-  favorites: storage.get(DATA_TYPES.FAVORITES) || [],
+  favorites: [],
+  liked: false,
+  selected: { now: true },
 });
 
-export const store = createStore(reducer);
+export const store = createStore(reduceSaver);
 
-// store.dispatch({type: "CHANGE_FAVORITE", content: { city: "City"}});
+function init() {
+    if(initialState.get(DATA_TYPES.WEATHER).city) return;
+    
+  getWeather("City").then((weather) =>
+    store.dispatch({ type: ACTION_TYPES.SET_WEATHER, content: { weather } })
+  );
+}
 
-getWeather("City").then((weather) =>
-  store.dispatch({ type: ACTION_TYPES.SET_WEATHER, content: { weather } })
-);
+init();
+
+function reduceSaver(state, action) {
+  const _state = reducer(state, action);
+
+  storage.set(DATA_TYPES.STATE, _state);
+  return _state.set(
+    DATA_TYPES.LIKED,
+    _state
+      .get(DATA_TYPES.FAVORITES)
+      .includes(_state.get(DATA_TYPES.WEATHER).city)
+  );
+}
 
 function reducer(state = initialState, action) {
   const { type, content } = action;
 
   if (!content) return state;
 
-  const { city, weather } = content;
+  const { city, weather, selected } = content;
 
   switch (type) {
     case ACTION_TYPES.SET_WEATHER:
-      weather.like = state.get(DATA_TYPES.FAVORITES).includes(weather.city);
-
-      storage.set(DATA_TYPES.WEATHER, weather);
       return state.set(DATA_TYPES.WEATHER, weather);
 
     case ACTION_TYPES.CHANGE_FAVORITES:
@@ -43,8 +61,10 @@ function reducer(state = initialState, action) {
 
       list[list.has(city) ? "delete" : "add"](city);
 
-      storage.set(DATA_TYPES.FAVORITES, [...list]);
       return state.set(DATA_TYPES.FAVORITES, [...list]);
+
+    case ACTION_TYPES.SET_TAB:
+      return state.set(DATA_TYPES.SELECTED, selected);
 
     default:
       break;

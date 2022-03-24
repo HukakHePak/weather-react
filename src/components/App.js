@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { ACTION_TYPES } from "../modules/actions/actions";
 
-function App(props) {
-  const { weather, favorites } = useSelector((state) => state.toObject());
+function App() {
+  const { weather, favorites, selected, liked } = useSelector((state) =>
+    state.toObject()
+  );
   const dispatch = useDispatch();
 
   async function searchWeather(city) {
@@ -37,7 +39,6 @@ function App(props) {
     <div className="App">
       <main>
         <div className="weather">
-          
           <SearchBar onSubmit={searchWeather} />
           <NotificationMessage
             value={weather.error?.message}
@@ -47,7 +48,17 @@ function App(props) {
           <div className="weather__content">
             <WeatherDisplay
               weather={weather}
+              liked={liked}
               onLike={changeFavorite}
+              selected={selected}
+              onSelect={(selected) =>
+                dispatch({
+                  type: ACTION_TYPES.SET_TAB,
+                  content: {
+                    selected,
+                  },
+                })
+              }
             />
             <NamedList
               title="Added Locations:"
