@@ -1,45 +1,32 @@
 import "./App.css";
 import { SearchBar } from "../components/SearchBar/SearchBar";
 import { NotificationMessage } from "../components/NotificationMessage/NotificationMessage";
-import { NamedList } from "../components/NamedList/NamedList";
-import { ClosinSelectItem } from "./ClosinSelectItem/ClosinSelectItem";
-import { getWeather } from "../modules/api/api";
+import { getWeather } from "../modules/api/getWeather";
 import { WeatherDisplay } from "./WeatherDisplay/WeatherDisplay";
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
-import { ACTION_TYPES } from "../modules/actions/actions";
+import { changeFavorite, setWeather } from "../modules/actions/actions";
+import { storage } from "../modules/storage/storage";
+import { FavoriteList } from "./FavoriteList/FavoriteList";
 
 function App() {
-  const { weather, favorites, selected, liked } = useSelector((state) =>
-    state.toObject()
-  );
+  const { weather, favorites } = useSelector((state) => state);
+
   const dispatch = useDispatch();
 
-  async function searchWeather(city) {
-    getWeather(city).then((weather) =>
-      dispatch({
-        type: ACTION_TYPES.SET_WEATHER,
-        content: {
-          weather,
-        },
-      })
-    );
+  function handleSearch(city) {
+    getWeather(city).then((weather) => dispatch(setWeather(weather)));
   }
 
-  function changeFavorite(city) {
-    dispatch({
-      type: ACTION_TYPES.CHANGE_FAVORITES,
-      content: {
-        city,
-      },
-    });
+  function handleChangeFavorite(city) {
+    dispatch(changeFavorite(city));
   }
 
   return (
     <div className="App">
       <main>
         <div className="weather">
-          <SearchBar onSubmit={searchWeather} />
+          <SearchBar onSubmit={handleSearch} />
           <NotificationMessage
             value={weather.error?.message}
             active={weather.status === "error"}
@@ -48,28 +35,14 @@ function App() {
           <div className="weather__content">
             <WeatherDisplay
               weather={weather}
-              liked={liked}
-              onLike={changeFavorite}
-              selected={selected}
-              onSelect={(selected) =>
-                dispatch({
-                  type: ACTION_TYPES.SET_TAB,
-                  content: {
-                    selected,
-                  },
-                })
-              }
+              liked={favorites.includes(weather.city)}
+              storage={storage}
+              onLike={handleChangeFavorite}
             />
-            <NamedList
-              title="Added Locations:"
-              list={[...favorites].map((city, index) => (
-                <ClosinSelectItem
-                  key={index}
-                  value={city}
-                  onOpen={searchWeather}
-                  onClose={changeFavorite}
-                />
-              ))}
+            <FavoriteList
+              favorites={favorites}
+              onSelect={handleSearch}
+              onRemove={handleChangeFavorite}
             />
           </div>
         </div>

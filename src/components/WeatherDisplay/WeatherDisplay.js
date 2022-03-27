@@ -4,10 +4,12 @@ import { FullTab } from "../WeatherTab/FullTab/FullTab";
 import { SimplyTab } from "../WeatherTab/SimplyTab/SimplyTab";
 import "./WeatherDisplay.css";
 import React from "react";
+import { useStorage } from "../../modules/hooks/useStorage";
 
 export function WeatherDisplay(props) {
-  const { weather, liked, onLike, selected, onSelect } = props;
+  const { liked, storage, weather, onLike } = props;
 
+  const [ selected, setSelected ] = useStorage({ now: true }, storage, 'opened-tab');
   const { now, detail, forecast } = selected;
 
   return (
@@ -24,17 +26,17 @@ export function WeatherDisplay(props) {
       <div className="weather-display__switcher">
         <SelectButton
           value="Now"
-          onClick={() => onSelect({ now: true })}
+          onClick={() => setSelected({ now: true })}
           active={now}
         />
         <SelectButton
           value="Detail"
-          onClick={() => onSelect({ detail: true })}
+          onClick={() => setSelected({ detail: true })}
           active={detail}
         />
         <SelectButton
           value="Forecast"
-          onClick={() => onSelect({ forecast: true })}
+          onClick={() => setSelected({ forecast: true })}
           active={forecast}
         />
       </div>
