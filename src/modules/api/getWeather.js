@@ -43,7 +43,7 @@ function simplifyWeatherData(data) {
 
   return {
     date: convertDate(dt).date,
-    time: dt_txt ? dt_txt.slice(-8, -3) : undefined,
+    time: dt_txt ? dt_txt.slice(-8, -3) : dt,
     temp: toCelcius(main.temp),
     feels: toCelcius(main.feels_like),
     weather: weather[0].main,

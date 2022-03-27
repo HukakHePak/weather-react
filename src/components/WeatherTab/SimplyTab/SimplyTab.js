@@ -6,7 +6,7 @@ import React from 'react';
 export function SimplyTab(props) {
     const { weather, onLike, active, liked } = props;
     const { img, alt, temp, city } = weather || {};
-    
+
     return (
       <div className={ 'simply-tab ' + (active && 'simply-tab--active') }>
         <img className="simply-tab__weather-img" src={ img } alt={ alt } />

@@ -1,21 +1,27 @@
 import "./App.css";
 import { SearchBar } from "../components/SearchBar/SearchBar";
 import { NotificationMessage } from "../components/NotificationMessage/NotificationMessage";
-import { getWeather } from "../modules/api/getWeather";
 import { WeatherDisplay } from "./WeatherDisplay/WeatherDisplay";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
-import { changeFavorite, setWeather } from "../modules/actions/actions";
+import React, { useEffect } from "react";
 import { storage } from "../modules/storage/storage";
 import { FavoriteList } from "./FavoriteList/FavoriteList";
+import { searchWeather } from "../modules/redux-reducers/weather/weather";
+import { changeFavorite } from "../modules/redux-reducers/favorites/favorites";
 
 function App() {
-  const { weather, favorites } = useSelector((state) => state);
+  const { weather, favorites }  = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if(!weather.city) {
+      handleSearch("City");
+    }
+  });
+
   function handleSearch(city) {
-    getWeather(city).then((weather) => dispatch(setWeather(weather)));
+    dispatch(searchWeather(city));
   }
 
   function handleChangeFavorite(city) {

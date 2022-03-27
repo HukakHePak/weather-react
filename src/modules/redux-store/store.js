@@ -1,11 +1,12 @@
-import { createStore } from "@reduxjs/toolkit";
+import { applyMiddleware, createStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
-import { weather } from "../redux-reducers/weather"
-import { favorites } from "../redux-reducers/favorites";
+import { weather } from "../redux-reducers/weather/weather";
+import { favorites } from "../redux-reducers/favorites/favorites";
+import ThunkMiddleware from "redux-thunk";
 
 const reducer = combineReducers({
   weather,
-  favorites
+  favorites,
 });
 
-export const store = createStore(reducer);
+export const store = createStore(reducer, applyMiddleware(ThunkMiddleware));

@@ -12,7 +12,7 @@ export function FullTab(props) {
         <ul className="full-tab__stats">
           <li> Temperature: { temp }° </li>
           <li> Feels like: { feels }° </li>
-          <li> Weather: { weather.weather } </li>
+          <li> Weather: { weather?.weather } </li>
           <li> Sunrise: { sunrise } </li>
           <li> Sunset: { sunset } </li>
         </ul>
