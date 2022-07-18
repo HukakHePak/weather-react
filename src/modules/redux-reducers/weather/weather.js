@@ -16,7 +16,7 @@ export function searchWeather(city) {
   return async (dispatch) =>
     getWeather(city).then((weather) => {
       dispatch(setWeather(weather));
-      storage.get(SET_WEATHER, weather);
+      storage.set(SET_WEATHER, weather);
     });
 }
 
